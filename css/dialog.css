@@ -1,0 +1,45 @@
+.dialog-overlay { position: fixed; top: 0; left: 0; z-index: 10000; width: 100%; height: 100%; background: #000; opacity:0; filter:alpha(opacity=0); -webkit-transition:all ease-in-out 0.2s; transition:all ease-in-out 0.2s; }
+.dialog-content {
+	position: fixed; top: 50%; left: 50%; z-index: 10001; width: 85%; overflow: hidden;
+	background-color: #FAFAFC; text-align: center; border-radius: 3px;
+	-webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);	
+	opacity:0; filter:alpha(opacity=0); -webkit-transition:all ease-in-out 0.2s; transition:all ease-in-out 0.2s;
+}
+.dialog-content-hd { padding: 20px 0 0; }
+.dialog-content-title { font-weight: 400; font-size: 17px; }
+.dialog-content-bd { padding: 15px 20px 0; font-size: 14px; color: #666; word-wrap: break-word; word-break: break-all; text-align: left; }
+.dialog-content-bd p { margin:5px 0; }
+.dialog-content-ft { 
+	position: relative; line-height: 42px; margin-top: 20px; font-size: 16px; 
+	display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex;
+}
+.dialog-content-ft a { 
+	position: relative; display: block; text-decoration: none; color: #0BB20C; outline: none; 
+	-webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+}
+.dialog-content-ft a:active { background-color: #EEEEEE; }
+.dialog-content-ft:after {
+	content: " "; position: absolute; left: 0; top: 0; width: 100%; height: 1px; border-top: 1px solid #D5D5D6; color: #D5D5D6;
+	-webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleY(0.5); transform: scaleY(0.5);
+}
+.dialog-content-ft a:after {
+	content: " "; position: absolute; left: 0; top: 0; width: 1px; height: 100%; border-left: 1px solid #D5D5D6; color: #D5D5D6;
+	-webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5);
+}
+.dialog-content-ft a:first-child:after { border-left: none; }
+.dialog-content-ft .dialog-btn-cancel { color: #353535; }
+.dialog-content-ft .dialog-btn-ok { color: #0BB20C; }
+
+.dialog-wrap-info .dialog-overlay { background-color: transparent; opacity: 0; filter:alpha(opacity=0); }
+.dialog-content-info { width: auto; text-align: center; background-color: rgba(0, 0, 0, 0.8); border-radius: 10px; }
+.dialog-content-info .dialog-content-bd { position: relative; padding: 0; width: 140px; height: 140px; color: #fff; text-align: center; }
+.dialog-content-info .dialog-content-bd .info-icon { max-width: 48px; margin: 20% 0 0; }
+.dialog-content-info .dialog-content-bd .info-text { position: absolute; width: 100%; left: 0; bottom: 20px; margin: 0; font-size: 16px; }
+
+.dialog-wrap-show .dialog-overlay { opacity:0.6; filter:alpha(opacity=60); }
+.dialog-wrap-show .dialog-content { opacity:1; filter:alpha(opacity=100); }
+
+
+@media screen and (min-width: 1024px) {
+  .dialog-content { max-width: 35%; }
+}

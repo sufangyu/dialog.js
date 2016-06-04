@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>支持jQuery和Zepto的弹出对话框插件</title>
+	<link rel="stylesheet" href="css/tpl-style.css">
+	<link rel="stylesheet" href="css/dialog.css">
+	<style>
+	.button { padding: 0 15px; cursor: pointer; margin-right: 15px; background: #f6f7fb; border: 1px solid #c7ced2; border-radius: 2px; color: #191d24; display: inline-block; height: 40px; line-height: 40px; text-align: center; outline:none; font-family: "Microsoft Yahei"; }
+	.button:hover { background-color: #f2f2f2; }
+	</style>
+</head>
+<body>
+	
+	<div class="tpl-wrapper">
+		<div class="plugin-intro">
+			<h1>Dialog</h1>
+			<p>弹出对话框插件，支持 jQuery 和 Zepto</p>
+		</div>
+		
+
+		<div class="panel panel-blue">
+			<div class="panel-hd"><h2>插件介绍</h2></div>
+			<div class="panel-bd">
+				<ul>					
+					<li>支持三种类型的弹窗展示：alert、confirm、info</li>
+			        <li>方便定制，可以自定义按钮的文字、样式、回调函数</li>
+			        <li>支持 jQuery 和 Zepto JavaScript工具库</li>
+			        <li>4 个状态事件，用来监听状态改变</li>
+			        <li>对话框默认样式主要针对移动端展示做优化</li>					
+			      </ul>
+			</div>
+			<div class="panel-ft">
+				<div class="row">
+					<div class="col-2-1">
+						<a href="https://github.com/sufangyu/dialog.js" target="_blank">下载最新版本</a>
+					</div>
+					<div class="col-2-1 text-right">
+						<a href="https://github.com/sufangyu/dialog.js" target="_blank">Star on GitHub</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="panel panel-green">
+			<div class="panel-hd"><h2>示例展示</h2></div>
+			<div class="panel-bd">				
+				<div class="example-wrap">
+					
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">默认</h3>
+						<div class="example-show">
+							<button id="btn-01" class="button" type="button">弹出对话框</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-01').click(function(){
+    $.dialog({
+        contentHtml : '&ltp&gt我是默认弹出对话框示例展示。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">自动关闭</h3>
+						<div class="example-show">
+							<button id="btn-02" class="button" type="button">弹出对话框</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-01').click(function(){
+    $.dialog({
+        autoClose : 2500,
+        contentHtml : '&ltp&gt我是自动关闭的对话框示例展示。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">无标题</h3>
+						<div class="example-show">
+							<button id="btn-03" class="button" type="button">弹出对话框</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-03').click(function(){
+    $.dialog({
+        showTitle : false,
+        contentHtml : '&ltp&gt我是没有标题的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">自定义标题</h3>
+						<div class="example-show">
+							<button id="btn-04" class="button" type="button">弹出对话框</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-04').click(function(){
+    $.dialog({
+        titleText : '自定义标题',
+        contentHtml : '&ltp&gt我是自定义标题的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">Comfirm 类型</h3>
+						<div class="example-show">
+							<button id="btn-05" class="button" type="button">确定/取消</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-05').click(function(){
+    $.dialog({
+        type : 'confirm',
+        contentHtml : '&ltp&gt我是confirm类型的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">Comfirm 类型, 自定义按钮文字</h3>
+						<div class="example-show">
+							<button id="btn-06" class="button" type="button">确定/取消</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-06').click(function(){
+    $.dialog({
+        type : 'confirm',
+        buttonText : {
+            ok : '自定义-确定',
+            cancel : '自定义-取消'
+        },
+        contentHtml : '&ltp&gt我是confirm类型的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">Comfirm 类型, 按钮回调函数</h3>
+						<div class="example-show">
+							<button id="btn-07" class="button" type="button">确定/取消</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-07').click(function(){
+    $.dialog({
+       type : 'confirm',
+       onClickOk : function(){
+           alert('你点了确定~~');
+       },
+       onClickCancel : function(){        		
+           alert('你点了取消~~');
+       },
+       contentHtml : '&ltp&gt我是confirm类型的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+					
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">Comfirm 类型, 状态回调函数</h3>
+						<div class="example-show">
+							<button id="btn-08" class="button" type="button">确定/取消</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-08').click(function(){
+    $.dialog({
+       type : 'confirm',
+       onBeforeShow : function(){
+           alert('显示前执行~~')
+       },
+       onShow : function(){
+           alert('显示完成后执行~~')
+       },
+       onBeforeClosed : function(){
+           alert('关闭前执行~~')
+       },
+       onClosed : function(){
+           alert('关闭后执行，可以看页面title是否改变~~');
+           document.title = '我已经关闭拉！';
+       },
+       contentHtml : '&ltp&gt我是confirm类型的对话框。&lt/p&gt &ltp&gt我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。我只是用来占位的内容展示，仅仅用来占位撑起提示内容的高度。&lt/p&gt'
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">info 类型</h3>
+						<div class="example-show">
+							<button id="btn-09" class="button" type="button">加载中</button>
+							<button id="btn-10" class="button" type="button">成功</button>
+							<button id="btn-11" class="button" type="button">失败</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-09').click(function(){
+    $.dialog({
+       type : 'info',
+       infoText : '加载中…',
+       infoIcon : 'images/icon/loading.gif',
+       autoClose : 2500
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">info 类型, HTML创建内容</h3>
+						<div class="example-show">
+							<button id="btn-12" class="button" type="button">成功</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-12').click(function(){
+    $.dialog({
+       type : 'info',
+       contentHtml : '&ltimg class="info-icon" src="images/icon/success.png" alt="操作成功" /&gt&ltp class="info-text"&gt操作成功&lt/p&gt',
+       autoClose : 2500
+    });
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">info 类型, 更改状态</h3>
+						<div class="example-show">
+							<button id="btn-13" class="button" type="button">加载中 to 成功</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-12').click(function(){
+    var infoDialog = $.dialog({
+        type : 'info',
+        infoText : '加载中…',
+        infoIcon : 'images/icon/loading.gif'			
+    });
+
+    window.setTimeout(function() {
+        infoDialog.dialog.update({
+	        autoClose : 1500,
+	        infoText : '操作成功',
+	        infoIcon : 'images/icon/success.png'
+        });
+    }, 2500);
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+
+				</div>
+			</div>			
+		</div>
+
+
+
+		<div class="panel panel-orange">
+			<div class="panel-hd"><h2>使用指南</h2></div>
+			<div class="panel-bd">
+				
+				<!-- S example-item -->
+				<div class="example-item">
+					<h3 class="example-name">引用文件</h3>
+					<div class="example-code">
+<p><strong>CSS</strong></p>
+<pre class="pre-scrollable"><code>&ltlink rel="stylesheet" href="css/dialog.css"&gt</code></pre>
+
+<p><strong>JS</strong></p>
+<pre class="pre-scrollable"><code>&ltscript src="js/zepto.min.js"&gt&lt/script&gt
+&ltscript src="js/dialog.js"&gt&lt/script&gt</code></pre>
+					</div>
+				</div>
+				<!-- E example-item -->
+
+				<!-- S example-item -->
+				<div class="example-item">
+					<h3 class="example-name">插件调用</h3>
+					<div class="example-code">
+<pre class="pre-scrollable"><code>$.dialog({
+    contentHtml : '弹出对话框的内容部分'
+});</code></pre>
+					</div>
+				</div>
+				<!-- E example-item -->
+
+			</div>			
+		</div>
+		
+		
+
+		<div class="panel panel-purple">
+			<div class="panel-hd"><h2>参数说明</h2></div>
+			<div class="panel-bd">
+				<div class="parameter-desc">
+					<table>
+						<thead>
+							<tr>
+								<th>参数</th>
+								<th>默认值</th>
+								<th>说明</th>
+							</tr>							
+						</thead>
+						<tbody>
+							<tr>
+								<td>type</td>
+								<td>'alert'</td>
+								<td><p>对话框的种类（alert-确定； confirm-确定/取消； info）</p></td>
+							</tr>
+							<tr>
+								<td>titleText</td>
+								<td>'信息提示'</td>
+								<td><p>标题文字</p></td>
+							</tr>
+							<tr>
+								<td>showTitle</td>
+								<td>true</td>
+								<td><p>是否显示标题。值为：true、false</p></td>
+							</tr>
+							<tr>
+								<td>contentHtml</td>
+								<td>''</td>
+								<td><p>主体部分的HTML内容。默认值为空</p></td>
+							</tr>
+							<tr>
+								<td>dialogClass</td>
+								<td>''</td>
+								<td><p>对话框自定义的 class。默认值为空</p></td>
+							</tr>
+							<tr>
+								<td>autoClose</td>
+								<td>0</td>
+								<td><p>自动关闭的延时时间（单位：毫秒）。为0时表示不自动关闭；大于0时，表示自动关闭对话框</p></td>
+							</tr>
+							<tr>
+								<td>overlayClose</td>
+								<td>fasle</td>
+								<td><p>是否可点击遮罩层关闭对话框。值为：true、false</p></td>
+							</tr>
+							<tr>
+								<td>buttonText</td>
+								<td>
+								   {<br />
+						        	&nbsp;&nbsp;&nbsp; ok : '确定', <br />
+						        	&nbsp;&nbsp;&nbsp; cancel : '取消'<br />
+						        	}
+						        </td>
+								<td><p>按钮的文字</p></td>
+							</tr>
+							<tr>
+								<td>buttonClass</td>
+								<td>
+								   {<br />
+						        	&nbsp;&nbsp;&nbsp; ok : '', <br />
+						        	&nbsp;&nbsp;&nbsp; cancel : ''<br />
+						        	}
+						        </td>
+								<td><p>按钮的自定义 class</p></td>
+							</tr>
+							<tr>
+								<td>infoText</td>
+								<td>''</td>
+								<td><p>info 类型对话框的提示文字</p></td>
+							</tr>
+							<tr>
+								<td>infoIcon</td>
+								<td>''</td>
+								<td><p>info 类型对话框的提示图标。值为图标的路径</p></td>
+							</tr>
+							<tr>
+								<td>onClickOk</td>
+								<td>function(){}</td>
+								<td><p>回调函数，点击“确定”按钮时执行</p></td>
+							</tr>
+							<tr>
+								<td>onClickCancel</td>
+								<td>function(){}</td>
+								<td><p>回调函数，点击“取消”按钮时执行</p></td>
+							</tr>
+
+							<tr>
+								<td>onBeforeShow</td>
+								<td>function(){}</td>
+								<td><p>回调函数，对话框显示前时执行</p></td>
+							</tr>
+							<tr>
+								<td>onShow</td>
+								<td>function(){}</td>
+								<td><p>回调函数，对话框显示后时执行</p></td>
+							</tr>
+							<tr>
+								<td>onBeforeClosed</td>
+								<td>function(){}</td>
+								<td><p>回调函数，对话框关闭前时执行</p></td>
+							</tr>
+							<tr>
+								<td>onClosed</td>
+								<td>function(){}</td>
+								<td><p>回调函数，对话框关闭后时执行</p></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>				
+			</div>			
+		</div>
+		
+
+
+		<div class="panel-simple">
+			<div class="panel-simple-hd"><h2>浏览器支持</h2></div>
+			<div class="panel-simple-bd">
+				<p>dialog 已经在 Internet Explorer 9+、Firefox 22+、Opera 9+、Google Chrome 和 Safari 浏览器上被验证过，并且应该可以再更多浏览器上工作。</p>
+				<p>移动浏览器（例如：Chrome mobile、 Safari mobile 和其它浏览器）也被支持。已经在 iOS (iPad、 iPhone、 iPod)、Android 设备上进行了测试。其他基于 Chrome 内核的移动浏览器也基本上支持。</p>
+			</div>
+		</div>
+		
+		<div class="download">
+			<a href="https://github.com/sufangyu/dialog.js" target="_blank">下载插件</a>
+		</div>
+
+	</div>
+
+	<div class="footer">
+		<p>插件使用 MIT 许可协议。Created by <a href="https://github.com/sufangyu" target="_blank">方雨_Yu</a></p>
+	</div>	
+	
+
+	<a class="fork-me" href="https://github.com/sufangyu/dialog.js" target="_blank">Fork me on GitHub</a>
+
+
+<!-- <script src="js/jquery-1.9.1.min.js"></script> -->
+<script src="js/zepto.min.js"></script>
+<script src="js/dialog.js"></script>
+<script src="js/example.js"></script>
+
+</body>
+</html>
