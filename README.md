@@ -2,7 +2,7 @@
 移动端Dialog弹出对话框插件，同时支持jQuery和Zepto
 
 # 特性：
-+ 支持三种类型的弹窗展示：alert、confirm、info；
++ 支持四种类型的弹窗展示：alert、confirm、info、tips；
 + 方便定制，可以自定义按钮的文字、样式、回调函数；
 + 支持 jQuery 和 Zepto JavaScript工具库；
 + 4个状态事件，用来监听状态改变；对话框默认样式主要针对移动端展示做优化。
@@ -64,7 +64,12 @@ $.dialog({
 |onClosed 	      | fn      | function(){} 	| 回调函数，对话框关闭后时执行|
 
 
-**计划：**
-- 弹窗主题内容部分增加最大高度，防止内容太多造成弹窗超出可视窗口；
-- 把click点击关闭弹窗，调整为PC端使用click，移动端使用自定义tap；
-- 增加弹窗显示时，页面是否可以滚动。
+# 方法
+| 方法            |   说明  |
+| :--------       | :----   |
+| $.dialog.close  | 关闭对话框。用法：dialogObj.dialog.close() |
+| $.dialog.update | 标题文字|更新info、tips类型对话框的状态（图标、提示文字），该方法可传入autoClose、infoText、infoIcon三个参数。dialogObj.dialog.update({ 
+     autoClose : 1500,
+     infoText : '操作成功',
+     infoIcon : 'images/icon/success.png'
+})
