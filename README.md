@@ -68,8 +68,4 @@ $.dialog({
 | 方法            |   说明  |
 | :--------       | :----   |
 | $.dialog.close  | 关闭对话框。用法：dialogObj.dialog.close() |
-| $.dialog.update | 标题文字|更新info、tips类型对话框的状态（图标、提示文字），该方法可传入autoClose、infoText、infoIcon三个参数。dialogObj.dialog.update({ 
-     autoClose : 1500,
-     infoText : '操作成功',
-     infoIcon : 'images/icon/success.png'
-})
+| $.dialog.update | 更新info、tips类型对话框的状态（图标、提示文字），该方法可传入autoClose、infoText、infoIcon三个参数。dialogObj.dialog.update({ autoClose : 1500, infoText : '操作成功', infoIcon : 'images/icon/success.png' })
