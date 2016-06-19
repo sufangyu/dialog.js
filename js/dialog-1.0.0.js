@@ -22,7 +22,7 @@
         $('body').append( dialogWrapper = $('<div class="dialog-wrap '+ settings.dialogClass +'"></div>') );
         dialogWrapper.append(
             overlay = $('<div class="dialog-overlay"></div>'),
-            content = $('<div class="dialog-content dialog-content-animate"></div>')
+            content = $('<div class="dialog-content"></div>')
         );
 
         switch (settings.type){
@@ -67,42 +67,29 @@
                     contentBd = $('<div class="dialog-content-bd">'+ infoContent +'</div>')
                 );
                 dialogWrapper.addClass('dialog-wrap-info');
-                content.addClass('dialog-content-info').removeClass('dialog-content-animate');
+                content.addClass('dialog-content-info');
                 break;
 
-            case 'tips' :
-                var tipsContent = settings.contentHtml || (settings.infoIcon ? '<img class="info-icon" src="'+ settings.infoIcon +'" alt="'+ settings.infoText +'" />' : '') + '<span class="info-text">'+ settings.infoText +'</span>';
-                content.append(
-                    contentBd = $('<div class="dialog-content-bd">'+ tipsContent +'</div>')
-                );
-                dialogWrapper.addClass('dialog-wrap-tips');
-                content.addClass('dialog-content-tips').removeClass('dialog-content-animate');
+            default :
                 break;
         }
 
-        setTimeout(function(){            
+        setTimeout(function(){
             dialogWrapper.addClass('dialog-wrap-show');
             settings.onShow();
-            _resize();
-        }, 50);
+        }, 10);
 
     };
 
     var _bindEvent = function() {
 
-        /*$(okBtn).on('tap', function(e){
-            settings.onClickOk();
-            $.dialog.close();
-            return false;
-        });*/
-
-        touchEvent.tap($(okBtn), function(){
+        $(okBtn).on('click', function(e){
             settings.onClickOk();
             $.dialog.close();
             return false;
         });
 
-        touchEvent.tap($(cancelBtn), function(){
+        $(cancelBtn).on('click', function(e){
             settings.onClickCancel();
             $.dialog.close();
             return false;
@@ -110,7 +97,7 @@
 
         // overlay clisk hide
         if( settings.overlayClose ){
-            touchEvent.tap($(overlay), function(){
+            overlay.on('click', function(e){
                 $.dialog.close();
             });
         }
@@ -120,16 +107,6 @@
             _autoClose();
         }
 
-        // stop body scroll
-        $(document).on('touchmove', function(event){
-            if( $(dialogWrapper).find($(event.target)).length ){
-                return false;
-            }else{
-                return true;
-            }
-        });
-        _touchScroll();
-
     };
 
     var _autoClose = function(){
@@ -137,94 +114,6 @@
         timer = window.setTimeout(function(){
             $.dialog.close();
         }, settings.autoClose);
-    };
-
-    var _setMaxHeight = function(){
-        var windowHeight = $(window).height();
-
-        $(contentBd).removeAttr('style');
-        if( $(content).height() >= windowHeight - 10 ){
-            var contentTitleHeight = $(title).height() + parseInt($(title).css('margin-top')) + parseInt($(title).css('margin-bottom')) + parseInt($(title).css('padding-top')) + parseInt($(title).css('padding-bottom'));
-            var contentFtHeight = $(contentFt).height() + parseInt($(contentFt).css('margin-top')) + parseInt($(contentFt).css('margin-bottom')) + parseInt($(contentFt).css('padding-top')) + parseInt($(contentFt).css('padding-bottom'));
-            var contentBdSpace =  parseInt($(contentBd).css('margin-top')) + parseInt($(contentBd).css('margin-bottom')) + parseInt($(contentBd).css('padding-top')) + parseInt($(contentBd).css('padding-bottom'));
-    
-            var contentMaxHeight = windowHeight - contentTitleHeight - contentFtHeight - contentBdSpace - 50;
-            $(contentBd).css({'max-height': contentMaxHeight, 'overflow-y':'auto'});
-        }
-    };
-
-    var _resize = function(){
-        _setMaxHeight();
-        $(window).on('resize', function(){
-            clearTimeout(timer);
-            var timer = window.setTimeout(function(){
-                _setMaxHeight();
-            },100);
-        });
-    };
-
-    var _touchScroll = function(){
-        var position = {
-            x: 0,
-            y: 0,
-            top: 0,
-            left: 0
-        };
-
-        // 滚动条top位置 = 原来的滚动条top - 滚动的距离
-        $(contentBd).on("touchstart", function(e) {
-            position.x = event.changedTouches[0].clientX,
-            position.y = event.changedTouches[0].clientY,
-            position.top == 0 && (position.top = $(this).scrollTop()),
-            position.left == 0 && (position.left = $(this).scrollLeft())
-        }).on("touchmove", function(e) {
-            $(this).scrollTop(position.top - event.changedTouches[0].clientY + position.y),
-            $(this).scrollLeft(position.left - event.changedTouches[0].clientX + position.x)
-        }).on("touchend", function(e) {
-            if (position.x != 0 || position.y != 0) {
-                // return (event.changedTouches[0].clientY - position.y > 20 || event.changedTouches[0].clientX - position.x > 20) && (e = !1),
-                position = {
-                    x: 0,
-                    y: 0,
-                    top: 0,
-                    left: 0
-                }
-            }
-        })
-    };
-
-    var touchEvent = {
-        tap : function(element, fn){
-            if ('ontouchstart' in window || 'ontouchstart' in document) {
-                var supportsTouch = true;
-            } else if(window.navigator.msPointerEnabled) {
-                var supportsTouch = true;
-            }
-
-            if(supportsTouch){
-                var startTx, startTy;
-                element.on('touchstart',function(e){
-                    var touches = e.touches[0];
-                    startTx = touches.clientX;
-                    startTy = touches.clientY;
-                });
-                
-                element.on('touchend',function(e){
-                    var touches = e.changedTouches[0],
-                    endTx = touches.clientX,
-                    endTy = touches.clientY;
-                    // 在部分设备上 touch 事件比较灵敏，导致按下和松开手指时的事件坐标会出现一点点变化
-                    if( Math.abs(startTx - endTx) < 6 && Math.abs(startTy - endTy) < 6 ){
-                        fn();
-                    }
-                    e.preventDefault();
-                });
-            }else{
-                element.on('click',function(e){
-                    fn();
-                });
-            }
-        }
     };
 
 
@@ -251,13 +140,8 @@
         dialogWrapper.removeClass('dialog-wrap-show');
         setTimeout(function(){
             dialogWrapper.remove();
-            settings.onClosed();            
+            settings.onClosed();
         }, 200);
-
-        // cancel stop body scroll
-        $(document).on('touchmove', function(event){
-            return true;
-        });
     };
 
     $.dialog.update = function(params) {
@@ -282,7 +166,7 @@
 
 
     $.fn.dialog.defaults = {
-        type : 'alert',     // alert、confirm、info、tips
+        type : 'alert',     // alert、confirm、info
         titleText : '信息提示',
         showTitle : true,
         contentHtml : '',

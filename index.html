@@ -24,7 +24,7 @@
 			<div class="panel-hd"><h2>插件介绍</h2></div>
 			<div class="panel-bd">
 				<ul>					
-					<li>支持三种类型的弹窗展示：alert、confirm、info</li>
+					<li>支持四种类型的弹窗展示：alert、confirm、info、tips</li>
 			        <li>方便定制，可以自定义按钮的文字、样式、回调函数</li>
 			        <li>支持 jQuery 和 Zepto JavaScript工具库</li>
 			        <li>4 个状态事件，用来监听状态改变</li>
@@ -285,6 +285,28 @@
 
 
 
+					<!-- S example-item -->
+					<div class="example-item">
+						<h3 class="example-name">Tips 类型</h3>
+						<div class="example-show">
+							<button id="btn-14" class="button" type="button">提交中</button>
+							<button id="btn-15" class="button" type="button">无图标</button>
+							<button id="btn-16" class="button" type="button">自定义</button>
+						</div>
+						<div class="example-code">
+<pre class="pre-scrollable"><code>$('#btn-14').click(function(){
+    var infoDialog = $.dialog({
+        type : 'tips',
+        infoText : '正在提交中…',
+        infoIcon : 'images/icon/loading.gif'
+    });    
+});</code></pre>
+						</div>
+					</div>
+					<!-- E example-item -->
+
+
+
 				</div>
 			</div>			
 		</div>
@@ -326,9 +348,10 @@
 		
 
 		<div class="panel panel-purple">
-			<div class="panel-hd"><h2>参数说明</h2></div>
+			<div class="panel-hd"><h2> API与参数</h2></div>
 			<div class="panel-bd">
 				<div class="parameter-desc">
+					<h3>参数</h3>
 					<table>
 						<thead>
 							<tr>
@@ -341,7 +364,7 @@
 							<tr>
 								<td>type</td>
 								<td>'alert'</td>
-								<td><p>对话框的种类（alert-确定； confirm-确定/取消； info）</p></td>
+								<td><p>对话框的种类（alert-确定； confirm-确定/取消； info-带图标信息提示；tips-单行提示信息）</p></td>
 							</tr>
 							<tr>
 								<td>titleText</td>
@@ -433,8 +456,33 @@
 								<td>onClosed</td>
 								<td>function(){}</td>
 								<td><p>回调函数，对话框关闭后时执行</p></td>
+							</tr>							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="parameter-desc">
+					<h3>方法</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>参数</th>
+								<th>说明</th>
+							</tr>							
+						</thead>
+						<tbody>
+							<tr>
+								<td>$.dialog.close</td>
+								<td><p>关闭对话框。用法：dialogObj.dialog.close()</p></td>
 							</tr>
-							
+							<tr>
+								<td>$.dialog.update</td>
+								<td><p>更新info、tips类型对话框的状态（图标、提示文字），该方法可传入autoClose、infoText、infoIcon三个参数。<br />dialogObj.dialog.update({ <br />
+									&nbsp;&nbsp;&nbsp;&nbsp; autoClose : 1500,<br />
+							    	&nbsp;&nbsp;&nbsp;&nbsp; infoText : '操作成功',<br />
+									&nbsp;&nbsp;&nbsp;&nbsp; infoIcon : 'images/icon/success.png'<br />
+								})</p></td>
+							</tr>												
 						</tbody>
 					</table>
 				</div>				
@@ -463,7 +511,6 @@
 	
 
 	<a class="fork-me" href="https://github.com/sufangyu/dialog.js" target="_blank">Fork me on GitHub</a>
-
 
 <!-- <script src="js/jquery-1.9.1.min.js"></script> -->
 <script src="js/zepto.min.js"></script>
