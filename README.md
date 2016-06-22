@@ -77,6 +77,7 @@ $.dialog({
 #### 1.0.2 (2016-06-22)
 + 修复弹出层按钮点击tap点透问题；
 + 修复使用jQuery时，tap无法正常使用；
++ 修复使用Zepto时，弹出层无法正常限制最大高度；
 + 优化弹出层的显示样式。 
 
 [全部更新日志](https://github.com/sufangyu/dialog.js/blob/master/Changelog.md)
