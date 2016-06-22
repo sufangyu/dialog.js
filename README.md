@@ -69,3 +69,11 @@ $.dialog({
 | :--------       | :----   |
 | $.dialog.close  | 关闭对话框。用法：dialogObj.dialog.close() |
 | $.dialog.update | 更新info、tips类型对话框的状态（图标、提示文字），该方法可传入autoClose、infoText、infoIcon三个参数。<br />dialogObj.dialog.update({ autoClose : 1500, infoText : '操作成功', infoIcon : 'images/icon/success.png' })
+
+
+#最新版本
+#### 1.0.2 (2016-06-22)
++ 修复弹出层按钮点击tap点透问题；
++ 修复使用jQuery时，tap无法正常使用；
++ 优化弹出层的显示样式。 
+[全部更新日志](https://github.com/sufangyu/dialog.js/blob/master/Changelog.md)
