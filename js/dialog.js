@@ -85,7 +85,12 @@
             dialogWrapper.addClass('dialog-wrap-show');
             settings.onShow();
             _resize();
-        }, 50);
+        }, 20);
+
+        // 解决zepto无法正常获取实际高度造成限制最大高度失效
+        setTimeout(function(){
+            _setMaxHeight();
+        }, 100);
 
     };
 
@@ -129,7 +134,7 @@
 
     var _autoClose = function(){
         clearTimeout(timer);
-        timer = window.setTimeout(function(){
+        var timer = window.setTimeout(function(){
             $.dialog.close();
         }, settings.autoClose);
     };
@@ -149,7 +154,7 @@
     };
 
     var _resize = function(){
-        _setMaxHeight();
+
         $(window).on('resize', function(){
             clearTimeout(timer);
             var timer = window.setTimeout(function(){
