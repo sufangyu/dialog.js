@@ -10,6 +10,8 @@
 # DEMO：
 查看效果，请点击→：[demo示例](http://sufangyu.github.io/project/dialog/)
 
+![项目地址二维码](http://7xp00j.com1.z0.glb.clouddn.com/erweima-dialog.js.png)
+
 
 # 三种类型的对话框：
 **1）alert 类型；**
