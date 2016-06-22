@@ -76,4 +76,5 @@ $.dialog({
 + 修复弹出层按钮点击tap点透问题；
 + 修复使用jQuery时，tap无法正常使用；
 + 优化弹出层的显示样式。 
+
 [全部更新日志](https://github.com/sufangyu/dialog.js/blob/master/Changelog.md)
