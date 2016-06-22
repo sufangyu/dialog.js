@@ -1,8 +1,7 @@
 /*
  * dialog
  * http://sufangyu.github.io
- * 方雨_Yu
- * 1.0.0(2016-06-04)
+ * 1.0.2(2016-06-22)
  */
 ;(function(win,$){
 
@@ -24,6 +23,8 @@
             overlay = $('<div class="dialog-overlay"></div>'),
             content = $('<div class="dialog-content dialog-content-animate"></div>')
         );
+        solveTapBug = $('<div class="solve-tap-bug" style="margin:0;padding:0;border:none;background:rgba(255,255,255,0.01); -webkit-tap-highlight-color:rgba(0,0,0,0); width:100%; height:100%; position:fixed; top:0px; left:0px;"></div>').insertBefore(dialogWrapper);
+        
 
         switch (settings.type){
             case 'alert' :
@@ -89,12 +90,6 @@
     };
 
     var _bindEvent = function() {
-
-        /*$(okBtn).on('tap', function(e){
-            settings.onClickOk();
-            $.dialog.close();
-            return false;
-        });*/
 
         touchEvent.tap($(okBtn), function(){
             settings.onClickOk();
@@ -190,11 +185,12 @@
                     left: 0
                 }
             }
+            e.preventDefault();
         })
     };
 
     var touchEvent = {
-        tap : function(element, fn){
+        tap : function(element, fn){           
             if ('ontouchstart' in window || 'ontouchstart' in document) {
                 var supportsTouch = true;
             } else if(window.navigator.msPointerEnabled) {
@@ -204,13 +200,13 @@
             if(supportsTouch){
                 var startTx, startTy;
                 element.on('touchstart',function(e){
-                    var touches = e.touches[0];
+                    var touches = e.touches ? e.touches[0] : e.originalEvent.touches[0];
                     startTx = touches.clientX;
                     startTy = touches.clientY;
                 });
                 
                 element.on('touchend',function(e){
-                    var touches = e.changedTouches[0],
+                    var touches = e.changedTouches ? e.changedTouches[0] : e.originalEvent.changedTouches[0];
                     endTx = touches.clientX,
                     endTy = touches.clientY;
                     // 在部分设备上 touch 事件比较灵敏，导致按下和松开手指时的事件坐标会出现一点点变化
@@ -258,6 +254,11 @@
         $(document).on('touchmove', function(event){
             return true;
         });
+
+        // 解决touchend点透，延迟阻止点透层隐藏
+        setTimeout(function(){
+            solveTapBug.remove();
+        }, 320);
     };
 
     $.dialog.update = function(params) {

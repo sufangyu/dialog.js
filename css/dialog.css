@@ -6,12 +6,12 @@
 	opacity: 0; filter: alpha(opacity=0); -webkit-transition: all ease-in-out 0.15s; transition:all ease-in-out 0.15s;
 }
 .dialog-content-animate { -webkit-transform: translate(-50%, -50%) scale(0.7); transform: translate(-50%, -50%) scale(0.7); }
-.dialog-content-hd { padding: 15px 0 0; margin-bottom: -8px; }
+.dialog-content-hd { padding: 15px 0 0; margin-bottom: -5px; }
 .dialog-content-title { margin: 0; padding: 0; font-weight: 400; font-size: 17px; line-height: 1.2; }
-.dialog-content-bd { padding: 0 15px 0; margin-top: 15px; font-size: 14px; color: #666; word-wrap: break-word; word-break: break-all; text-align: left; -webkit-overflow-scrolling: touch; }
+.dialog-content-bd { padding: 0 15px 0; margin-top: 15px; font-size: 15px; color: #666; word-wrap: break-word; word-break: break-all; text-align: left; -webkit-overflow-scrolling: touch; }
 .dialog-content-bd p { margin: 5px 0; }
 .dialog-content-ft { 
-	position: relative; line-height: 42px; margin-top: 15px; font-size: 16px; overflow: hidden; border-radius: 0 0 5px 5px;	
+	position: relative; line-height: 42px; margin-top: 15px; font-size: 16px; overflow: hidden;
 	display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex;
 }
 .dialog-content-ft a {
@@ -27,6 +27,8 @@
 	content: " "; position: absolute; left: 0; top: 0; width: 1px; height: 100%; border-left: 1px solid #D5D5D6; color: #D5D5D6;
 	-webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5);
 }
+.dialog-content-ft a:first-child { border-bottom-left-radius: 5px; }
+.dialog-content-ft a:last-child { border-bottom-right-radius: 5px; }
 .dialog-content-ft a:first-child:after { border-left: none; }
 .dialog-content-ft .dialog-btn-cancel { color: #353535; }
 .dialog-content-ft .dialog-btn-ok { color: #0BB20C; }
