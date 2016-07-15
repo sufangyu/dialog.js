@@ -79,5 +79,6 @@ $.dialog({
 + 修复连续点击遮罩层后，弹窗会自动关闭；
 + 延迟阻止Tap点透层的关闭时间；
 + 增加 info 和 tips 类型弹窗的关闭前与关闭后的回调函数；
++ 通过CSS3启用GPU硬件加速
 
 [全部更新日志](https://github.com/sufangyu/dialog.js/blob/master/Changelog.md)
