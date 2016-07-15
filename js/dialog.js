@@ -1,14 +1,14 @@
 /*
  * dialog
  * http://sufangyu.github.io
- * 1.0.2(2016-06-22)
+ * 1.0.3(2016-07-15)
  */
 ;(function(win,$){
 
     /*
      * Private methods 
      */    
-    var wrap, overlay, content, title, close, cancelBtn, okBtn, delBtn, settings, timer;
+    var wrap, overlay, content, title, close, cancelBtn, okBtn, delBtn, settings, timer, aTimer;
 
     var _renderDOM = function(){
         if( $('.dialog-wrap').length > 0){
@@ -16,6 +16,7 @@
         }
 
         clearTimeout(timer);
+        clearTimeout(aTimer);
         settings.onBeforeShow();
         
         $('body').append( dialogWrapper = $('<div class="dialog-wrap '+ settings.dialogClass +'"></div>') );
@@ -40,7 +41,7 @@
                     contentFt = $('<div class="dialog-content-ft"></div>')                   
                 );
                 contentFt.append(
-                    okBtn = $('<a class="dialog-btn dialog-btn-ok '+ settings.buttonClass.ok +'" href="javascript:;">'+ settings.buttonText.ok +'</a>')
+                    okBtn = $('<button class="dialog-btn dialog-btn-ok '+ settings.buttonClass.ok +'" >'+ settings.buttonText.ok +'</button>')
                 );
                 break;
 
@@ -57,8 +58,8 @@
                     contentFt = $('<div class="dialog-content-ft"></div>')
                 );
                 contentFt.append(
-                    cancelBtn = $('<a class="dialog-btn dialog-btn-cancel '+ settings.buttonClass.cancel +'" href="javascript:;">'+ settings.buttonText.cancel +'</a>'),
-                    okBtn = $('<a class="dialog-btn dialog-btn-ok '+ settings.buttonClass.ok +'" href="javascript:;">'+ settings.buttonText.ok +'</a>')
+                    cancelBtn = $('<button class="dialog-btn dialog-btn-cancel '+ settings.buttonClass.cancel +'" >'+ settings.buttonText.cancel +'</button>'),
+                    okBtn = $('<button class="dialog-btn dialog-btn-ok '+ settings.buttonClass.ok +'" >'+ settings.buttonText.ok +'</button>')
                 );
                 break;
 
@@ -133,8 +134,8 @@
     };
 
     var _autoClose = function(){
-        clearTimeout(timer);
-        var timer = window.setTimeout(function(){
+        clearTimeout(aTimer);
+        aTimer = window.setTimeout(function(){
             $.dialog.close();
         }, settings.autoClose);
     };
@@ -156,8 +157,8 @@
     var _resize = function(){
 
         $(window).on('resize', function(){
-            clearTimeout(timer);
-            var timer = window.setTimeout(function(){
+            clearTimeout(rTimer);
+            var rTimer = window.setTimeout(function(){
                 _setMaxHeight();
             },100);
         });
@@ -250,10 +251,10 @@
         settings.onBeforeClosed();
 
         dialogWrapper.removeClass('dialog-wrap-show');
-        setTimeout(function(){
+        timer = setTimeout(function(){
             dialogWrapper.remove();
             settings.onClosed();            
-        }, 200);
+        }, 100);
 
         // cancel stop body scroll
         $(document).on('touchmove', function(event){
@@ -263,7 +264,7 @@
         // 解决touchend点透，延迟阻止点透层隐藏
         setTimeout(function(){
             solveTapBug.remove();
-        }, 320);
+        }, 350);
     };
 
     $.dialog.update = function(params) {
@@ -275,7 +276,9 @@
         }
         if(params.autoClose>0){
             window.setTimeout(function(){
+				if(params.onBeforeClosed) { params.onBeforeClosed(); }
                 $.dialog.close();
+                if(params.onClosed) { params.onClosed(); }
             }, params.autoClose);
         }
     };
