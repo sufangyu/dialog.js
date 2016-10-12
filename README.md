@@ -1,4 +1,4 @@
-移动端弹窗插件第二版已经上线, [GitHub地址](https://github.com/sufangyu/dialog2)
+移动端弹窗插件第二版已经上线，[GitHub地址](https://github.com/sufangyu/dialog2)
 ###新特性
 + 弹窗可选 IOS 或者 Material Design 风格
 + 可自定义多个按钮
