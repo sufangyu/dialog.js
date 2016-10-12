@@ -1,3 +1,12 @@
+移动端弹窗插件第二版已经上线, [GitHub地址](https://github.com/sufangyu/dialog2)
+###新特性
++ 弹窗可选 IOS 或者 Material Design 风格
++ 可自定义多个按钮
++ 按钮排版样式，并排或者堆叠
++ notice 弹窗的位置，居中或者底部
++ 支持同时显示多个弹窗
+
+
 # dialog.js
 移动端Dialog弹出对话框插件，同时支持jQuery和Zepto
 
