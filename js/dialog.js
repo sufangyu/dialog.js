@@ -6,8 +6,8 @@
 ;(function(win,$){
 
     /*
-     * Private methods 
-     */    
+     * Private methods
+     */
     var wrap, overlay, content, title, close, cancelBtn, okBtn, delBtn, settings, timer, aTimer;
 
     var _renderDOM = function(){
@@ -18,14 +18,14 @@
         clearTimeout(timer);
         clearTimeout(aTimer);
         settings.onBeforeShow();
-        
+
         $('body').append( dialogWrapper = $('<div class="dialog-wrap '+ settings.dialogClass +'"></div>') );
         dialogWrapper.append(
             overlay = $('<div class="dialog-overlay"></div>'),
             content = $('<div class="dialog-content dialog-content-animate"></div>')
         );
         solveTapBug = $('<div class="solve-tap-bug" style="margin:0;padding:0;border:none;background:rgba(255,255,255,0.01); -webkit-tap-highlight-color:rgba(0,0,0,0); width:100%; height:100%; position:fixed; top:0px; left:0px;"></div>').insertBefore(dialogWrapper);
-        
+
 
         switch (settings.type){
             case 'alert' :
@@ -38,7 +38,7 @@
                     contentBd = $('<div class="dialog-content-bd">'+ settings.contentHtml +'</div>')
                 );
                 content.append(
-                    contentFt = $('<div class="dialog-content-ft"></div>')                   
+                    contentFt = $('<div class="dialog-content-ft"></div>')
                 );
                 contentFt.append(
                     okBtn = $('<button class="dialog-btn dialog-btn-ok '+ settings.buttonClass.ok +'" >'+ settings.buttonText.ok +'</button>')
@@ -82,18 +82,25 @@
                 break;
         }
 
-        setTimeout(function(){            
+        setTimeout(function(){
             dialogWrapper.addClass('dialog-wrap-show');
             settings.onShow();
             _resize();
         }, 20);
 
+        _setDirectionAndAlign();
+
         // 解决zepto无法正常获取实际高度造成限制最大高度失效
         setTimeout(function(){
             _setMaxHeight();
+            _setDirectionAndAlign();
         }, 100);
 
     };
+
+    var _setDirectionAndAlign = function(){
+      $(contentBd).css({'direction': settings.direction,'text-align': settings.align});
+    }
 
     var _bindEvent = function() {
 
@@ -148,7 +155,7 @@
             var contentTitleHeight = $(title).height() + parseInt($(title).css('margin-top')) + parseInt($(title).css('margin-bottom')) + parseInt($(title).css('padding-top')) + parseInt($(title).css('padding-bottom'));
             var contentFtHeight = $(contentFt).height() + parseInt($(contentFt).css('margin-top')) + parseInt($(contentFt).css('margin-bottom')) + parseInt($(contentFt).css('padding-top')) + parseInt($(contentFt).css('padding-bottom'));
             var contentBdSpace =  parseInt($(contentBd).css('margin-top')) + parseInt($(contentBd).css('margin-bottom')) + parseInt($(contentBd).css('padding-top')) + parseInt($(contentBd).css('padding-bottom'));
-    
+
             var contentMaxHeight = windowHeight - contentTitleHeight - contentFtHeight - contentBdSpace - 50;
             $(contentBd).css({'max-height': contentMaxHeight, 'overflow-y':'auto'});
         }
@@ -196,7 +203,7 @@
     };
 
     var touchEvent = {
-        tap : function(element, fn){           
+        tap : function(element, fn){
             if ('ontouchstart' in window || 'ontouchstart' in document) {
                 var supportsTouch = true;
             } else if(window.navigator.msPointerEnabled) {
@@ -210,7 +217,7 @@
                     startTx = touches.clientX;
                     startTy = touches.clientY;
                 });
-                
+
                 element.on('touchend',function(e){
                     var touches = e.changedTouches ? e.changedTouches[0] : e.originalEvent.changedTouches[0];
                     endTx = touches.clientX,
@@ -232,14 +239,14 @@
 
 
     /*
-     * Public methods 
+     * Public methods
      */
 
     $.dialog = function(options) {
-        settings = $.extend({}, $.fn.dialog.defaults, options);        
+        settings = $.extend({}, $.fn.dialog.defaults, options);
         $.dialog.init();
         return this;
-    };   
+    };
 
     $.dialog.init = function(){
         _renderDOM();
@@ -253,7 +260,7 @@
         dialogWrapper.removeClass('dialog-wrap-show');
         timer = setTimeout(function(){
             dialogWrapper.remove();
-            settings.onClosed();            
+            settings.onClosed();
         }, 100);
 
         // cancel stop body scroll
@@ -271,7 +278,7 @@
         if(params.infoText) {
             content.find('.info-text').html(params.infoText);
         }
-        if(params.infoIcon) {            
+        if(params.infoIcon) {
             content.find('.info-icon').attr('src', params.infoIcon);
         }
         if(params.autoClose>0){
@@ -299,6 +306,8 @@
         autoClose : 0,
         overlayClose : false,
         drag : false,
+        direction: 'ltr',
+        align: 'left',
 
         buttonText : {
             ok : '确定',
