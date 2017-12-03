@@ -167,6 +167,7 @@
             clearTimeout(rTimer);
             var rTimer = window.setTimeout(function(){
                 _setMaxHeight();
+                _setDirectionAndAlign();
             },100);
         });
     };
